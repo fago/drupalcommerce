@@ -1,0 +1,60 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Tests for the commerce price module.
+ */
+
+/**
+ * Test the product price calculation.
+ */
+class CommercePriceTestCase extends DrupalWebTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Commerce Price',
+      'description' => 'Tests price calculation',
+      'group' => 'Drupal Commerce',
+    );
+  }
+
+  function setUp() {
+    parent::setUp('commerce_price', 'rules', 'commerce_product');
+    $field = array(
+      'field_name' => 'sell_price',
+      'type' => 'commerce_price',
+      'cardinality' => 1,
+      'translatable' => FALSE,
+    );
+    field_create_field($field);
+
+    $instance = array(
+      'object_type' => 'commerce_product',
+      'field_name' => 'sell_price',
+      'bundle' => 'product',
+      'label' => 'Sell price',
+      'description' => 'Sell price for this product.',
+      'widget' => array(
+        'type' => 'commerce_price_simple',
+        'weight' => 0,
+      ),
+    );
+    field_create_instance($instance);
+  }
+
+  /**
+   * Tests basic price calculation via the rule set.
+   */
+  function testPriceCalculation() {
+    $price = new CommercePrice();
+    $product = commerce_product_new('product');
+    $product->sell_price[LANGUAGE_NONE][0]['price'] = 42;
+    $product->sell_price[LANGUAGE_NONE][0]['currency'] = 'eur';
+    commerce_product_save($product);
+
+    rules_invoke_rule_set('commerce_price_calculation', $product, $price);
+    $data = $price->getBasePrice();
+    $this->assertEqual($data['price'], '42', 'Base price has been set.');
+    //debug(RulesLog::logger()->render());
+  }
+}
