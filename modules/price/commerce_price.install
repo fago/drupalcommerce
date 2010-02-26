@@ -11,7 +11,9 @@
  */
 function commerce_price_install() {
   // Create a sell_price field.
-  $field = array(
+
+  // Commented out because it fails.
+/*  $field = array(
     'field_name' => 'sell_price',
     'type' => 'commerce_price',
     'cardinality' => 1,
@@ -30,5 +32,5 @@ function commerce_price_install() {
       'weight' => 0,
     ),
   );
-  field_create_instance($instance);
+  field_create_instance($instance);*/
 }
