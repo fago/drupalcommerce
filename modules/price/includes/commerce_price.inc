@@ -52,12 +52,12 @@ class CommercePrice {
     else {
       // Submit a watchdog error if there is not enough data to change the price.
       watchdog('error', 'Attempt to modify a price by a non-numeric value. %module - %description - %amount', array('%module' => $module, '%amount' => $amount, '%description' => $description));
-      return FALSE
+      return FALSE;
     }
   }
 
-  /** 
-   * function getLogByModule() allows a developer to load an array of the 
+  /**
+   * function getLogByModule() allows a developer to load an array of the
    * price modifications from a specified module. i.e. load all of the price
    * adjustments submitted by the tax module.
    *
@@ -82,7 +82,7 @@ class CommercePrice {
   /**
    * function getLogByModuleDescription() allows a deveoper to load an array of
    * price modifications which match a specified module and description.  i.e.
-   * return all of the log entries from that tax system, for the "VAT 19.5%" 
+   * return all of the log entries from that tax system, for the "VAT 19.5%"
    * tax rate.
    *
    * @param $module
