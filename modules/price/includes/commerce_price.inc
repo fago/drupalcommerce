@@ -105,4 +105,35 @@ class CommercePrice {
     }
     return $return;
   }
+
+  /**
+   * Gets the base price and its currency.
+   */
+  function getBasePrice() {
+    return array('price' => $this->basePrice, 'currency' => $this->currency);
+  }
+
+  /**
+   * Sets the base price and its currency.
+   */
+  function setBasePrice($data) {
+    $this->basePrice = $data['price'];
+    $this->currency = $data['currency'];
+  }
+}
+
+/**
+ * Entity metadata callback for getting the data structure for the base price
+ * as used by the field.
+ */
+function commerce_price_get_base_price(CommercePrice $price) {
+  return $price->getBasePrice();
+}
+
+/**
+ * Entity metadata callback for setting the data structure for the base price
+ * as used by the field.
+ */
+function commerce_price_set_base_price(CommercePrice $price, $name, $value) {
+  return $price->setBasePrice($value);
 }

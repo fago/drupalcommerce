@@ -217,7 +217,15 @@ function commerce_price_property_info_callback(&$info, $entity_type, $field, $in
 
   $property['getter callback'] = 'entity_metadata_field_verbatim_get';
   $property['setter callback'] = 'entity_metadata_field_verbatim_set';
-  $property['data info']['properties'] = array(
+  _commerce_price_property_data_info($property);
+  unset($property['query callback']);
+}
+
+/**
+ * Adds in data info for the price data structure.
+ */
+function _commerce_price_property_data_info(&$info) {
+  $info['data info']['properties'] = array(
     'value' => array(
       'type' => 'decimal',
       'label' => t('Price value'),
@@ -230,7 +238,6 @@ function commerce_price_property_info_callback(&$info, $entity_type, $field, $in
       'getter callback' => 'entity_metadata_verbatim_get',
     ),
   );
-  unset($property['query callback']);
 }
 
 /**
