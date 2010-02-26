@@ -4,5 +4,6 @@ description = Defines a base price field for products.
 package = Drupal Commerce
 files[] = commerce_price.module
 files[] = commerce_price.install
+files[] = commerce_price.rules_defaults.inc
 dependencies[] = commerce
 core = 7.x
